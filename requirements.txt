@@ -1,0 +1,6 @@
+# Replace with the exact versions you used (run: pip freeze)
+numpy
+scipy
+scikit-learn
+torch
+matplotlib

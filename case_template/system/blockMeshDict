@@ -1,0 +1,70 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| darcyReservoirFoam — system/blockMeshDict                                 |
+| Two-layer petroleum reservoir: 10km x 10km x 100m                        |
+|                                                                            |
+| FIX from previous version:                                                |
+|   Restored correct 10,000m domain (was replaced with 1m unit cube)       |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      blockMeshDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+scale   1;
+
+vertices
+(
+    // Bottom block: z = 0 to 60m
+    (    0     0   0)   //  0
+    (10000     0   0)   //  1
+    (10000 10000   0)   //  2
+    (    0 10000   0)   //  3
+    (    0     0  60)   //  4
+    (10000     0  60)   //  5
+    (10000 10000  60)   //  6
+    (    0 10000  60)   //  7
+
+    // Top block: z = 60 to 100m
+    (    0     0 100)   //  8
+    (10000     0 100)   //  9
+    (10000 10000 100)   // 10
+    (    0 10000 100)   // 11
+);
+
+blocks
+(
+    // Block 0: bottom layer (0-60m), NZ=12 → dz=5m
+    hex (0 1 2 3 4 5 6 7)   bottomLayer   (40 40 12)   simpleGrading (1 1 1)
+
+    // Block 1: top layer (60-100m), NZ=8 → dz=5m
+    hex (4 5 6 7 8 9 10 11) topLayer      (40 40 8)    simpleGrading (1 1 1)
+);
+
+boundary
+(
+    reservoir
+    {
+        type patch;
+        faces
+        (
+            // West  x=0
+            (0 3 7 4)   (4 7 11 8)
+            // East  x=10000
+            (1 2 6 5)   (5 6 10 9)
+            // South y=0
+            (0 1 5 4)   (4 5 9 8)
+            // North y=10000
+            (3 2 6 7)   (7 6 10 11)
+            // Bottom z=0
+            (0 1 2 3)
+            // Top z=100m
+            (8 9 10 11)
+        );
+    }
+);
+
+// ************************************************************************* //

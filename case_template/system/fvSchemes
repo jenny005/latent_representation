@@ -1,0 +1,46 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| darcyReservoirFoam — system/fvSchemes                                     |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      fvSchemes;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+// Darcy pressure equation has only ddt and laplacian terms — no div needed.
+// phi*ct*dp/dt = div(K/mu * grad(p)) + q
+
+ddtSchemes
+{
+    default         Euler;          // first-order implicit — stable, diffusive
+}
+
+gradSchemes
+{
+    default         Gauss linear;
+}
+
+divSchemes
+{
+    default         none;           // no convection in Darcy flow
+}
+
+laplacianSchemes
+{
+    default         Gauss linear corrected;   // second-order, handles non-ortho
+}
+
+interpolationSchemes
+{
+    default         linear;
+}
+
+snGradSchemes
+{
+    default         corrected;
+}
+
+// ************************************************************************* //

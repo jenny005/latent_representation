@@ -1,0 +1,17 @@
+*.npy
+*.npz
+*.h5
+*.pt
+*.pth
+data/
+ensemble/
+logs/
+*.out
+*.err
+Make/linux64*/
+lnInclude/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.DS_Store
+Thumbs.db

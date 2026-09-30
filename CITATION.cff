@@ -1,0 +1,13 @@
+cff-version: 1.2.0
+message: "If you use this code, please cite the paper below."
+title: "POD vs. Autoencoder: A Falsifiable Test of Representation Faithfulness"
+authors:
+  - family-names: Zhan
+    given-names: Jing
+    affiliation: Louisiana State University
+  - family-names: Chen
+    given-names: Jianhua
+    affiliation: Louisiana State University
+version: 1.0-jcp
+license: MIT
+repository-code: "https://github.com/jenny005/latent_representation"
